@@ -8,6 +8,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "codemirror": "^5.44.0",
+    "throttle-debounce": "^2.1.0",
     "vue": "^2.6.6"
   },
   "devDependencies": {
