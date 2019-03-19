@@ -11,7 +11,6 @@
 <style>
 .CodeMirror {
   flex: 1;
-  align-content: left;
 }
 </style>
 <style >
@@ -23,6 +22,7 @@
 }
 .edit-header {
   display: flex;
+  font-weight: bold;
   justify-content: center;
   align-items: center;
   height: 40px;

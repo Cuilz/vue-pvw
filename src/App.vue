@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <div class="code-mirror-container">
-      <code-mirror v-model="vueSource" />
-    </div>
+    <code-mirror v-model="vueSource" />
   </div>
 </template>
 
@@ -23,11 +21,14 @@ export default {
 </script>
 
 <style>
+html, body, #app {
+  height: 100%;
+  margin: 0;
+}
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
+  display: flex;
 }
-.code-mirror-container {
-  width: 800px;
-  height: 1000px;
-}
+
 </style>
