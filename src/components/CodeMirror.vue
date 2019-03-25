@@ -43,7 +43,15 @@ import CodeMirror from 'codemirror';
 import 'codemirror/mode/markdown/markdown';
 import 'codemirror/mode/vue/vue';
 import 'codemirror/mode/javascript/javascript';
-import { debounce } from 'throttle-debounce'
+import { debounce } from 'throttle-debounce';
+
+const DEFAULT_OPTIONS = {
+  alue: '',
+  lineNumbers: true,
+  styleActiveLine: true,
+  matchBrackets: true,
+  lineWrapping: true
+}
 
 export default {
   props: {
@@ -86,24 +94,19 @@ export default {
     }
   },
   mounted () {
-    this.editorIns = CodeMirror.fromTextArea(this.$refs.editor, {
-      value: '',
+    this.editorIns = CodeMirror.fromTextArea(this.$refs.editor, Object.assign({}, DEFAULT_OPTIONS, {
       mode: this.mode,
       theme: this.theme,
-      lineNumbers: true,
-      styleActiveLine: true,
       autofocus: this.readOnly ? false : true,
       readOnly: this.readOnly,
-      matchBrackets: true,
-      lineWrapping: true
-    });
+    }));
 
     this.editorIns.setValue(this.value.trim())
 
     this.editorIns.on(
       'change',
       debounce(500, () => {
-        this.$emit('input', this.editorIns.getValue())
+        this.$emit('input', this.editorIns.getValue());
       })
     )
   }

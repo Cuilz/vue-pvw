@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <code-mirror v-model="vueSource" />
+    <code-mirror v-model="code" />
+    <preview :component-source=code />
   </div>
 </template>
 
@@ -10,11 +11,12 @@ import vueSource from './utils/vueSource';
 export default {
   name: "app",
   components: {
-    CodeMirror: () => import('./components/CodeMirror.vue')
+    CodeMirror: () => import('./components/CodeMirror.vue'),
+    Preview: () => import('./components/Priview.vue')
   },
   data () {
     return {
-      vueSource
+      code: vueSource
     }
   }
 };

@@ -1,34 +1,22 @@
 export default `
 <template>
   <div>
-    <!-- Form header -->
-    <slot name="header">
-      <!-- \`<th>title</th>\` -->
-      <th>title</th>
-    </slot>
+    <span>{{value}}</span>
   </div>
 </template>
 
 <script>
-// This is a description of the component
 export default {
   name: 'MyComponent',
-  props: {
-    // The name of the form, up to 8 characters
-    name: {
-      type: [String, Number],
-      required: true,
-      validator () {}
+  data () {
+    return {
+      value: '111'
     }
   },
-  methods: {
-    // @vuese
-    // Used to manually clear the form
-    clear () {
-      // Fire when the form is cleared
-      // @arg The argument is a boolean value representing xxx
-      this.$emit('onclear', true)
-    }
+  created () {
+    setTimeout(() => {
+      this.value = '222';
+    }, 1000);
   }
 }
 </script>
