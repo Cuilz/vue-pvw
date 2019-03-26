@@ -7,16 +7,11 @@ export default `
 
 <script>
 export default {
-  name: 'MyComponent',
+  name: 'HelloWorld',
   data () {
     return {
-      value: '111'
+      value: 'Hello, World!'
     }
-  },
-  created () {
-    setTimeout(() => {
-      this.value = '222';
-    }, 1000);
   }
 }
 </script>

@@ -22,8 +22,6 @@
     <div class="preview-header">
       预览
     </div>
-    <div :id="scope" class="preview-content">
-    </div>
   </div>
 </template>
 
@@ -44,7 +42,7 @@ export default {
   },
   watch: {
     'componentSource': function (vueSource) {
-      this.compileCode(vueSource);
+      this.init(vueSource);
     }
   },
   methods: {
@@ -54,6 +52,10 @@ export default {
         return v.toString(16);
       });
     },
+    init (componentSource) {
+      this.compileCode(componentSource);
+      this.renderCode();
+    },
     compileCode (vueSource) {
       const { template, script, styles } = parseComponent(vueSource);
 
@@ -61,12 +63,25 @@ export default {
       const transformedScript = babel.transformSync(script.content, null).code.replace(/export default /, '');
       this.script = eval(`(function(exports){ return ${transformedScript}; })({})`);
       this.styles = styles.content;
+    },
+    renderCode () {
+      const container = this.$el;
 
-      new Vue(Object.assign({}, { template: this.template }, this.script)).$mount(`#${this.scope}`);
+      if (this.codeVM) {
+        this.codeVM.$destroy();
+        container.removeChild(this.codeVM.$el);
+      }
+
+      const previewEl = document.createElement('div');
+      previewEl.setAttribute('id', this.scope);
+      container.appendChild(previewEl);
+
+      this.codeVM = new Vue(Object.assign({}, { template: this.template }, this.script));
+      this.codeVM.$mount(previewEl);
     }
   },
   mounted () {
-    this.compileCode(this.componentSource);
+    this.init(this.componentSource);
   }
 }
 </script>
